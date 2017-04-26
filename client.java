@@ -8,28 +8,28 @@ public class client3
 	{
 		try
 		{
-			String host = "192.168.35.134";
+			String host = "202.58.86.29";
 			int port = 8080;
 			InetAddress address = InetAddress.getByName(host);
 			socket = new Socket(address,port);
 
-			//send the message to the server
+			//send message to the server
 			OutputStream os = socket.getOutputStream();
 			OutputStreamWriter osw = new OutputStreamWriter(os);
 			BufferedWriter bw = new BufferedWriter(osw);
 
-			String msg = "Hello World";
-			String sendMessage = msg + "\n";
-			bw.write(sendMessage);
+			String msg = "Testing";
+			String sndMsg = msg + "\n";
+			bw.write(sndMsg);
 			bw.flush();
-			System.out.println("Message sent to the server: " + sendMessage);
+			System.out.println("Message sent: " + sndMsg);
 
-			//Get the return message from the server
+			//Get message from the server
 			InputStream is = socket.getInputStream();
 			InputStreamReader isr = new InputStreamReader(is);
 			BufferedReader br = new BufferedReader(isr);
 			String message = br.readLine();
-			System.out.println("Message received from the server: " + message);
+			System.out.println("Message received: " + message);
 		}
 		catch (Exception exception)
 		{
@@ -37,7 +37,6 @@ public class client3
 		}
 		finally
 		{
-			//closing the socket
 			try
 			{
 				socket.close();
