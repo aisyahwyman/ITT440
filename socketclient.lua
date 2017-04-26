@@ -4,7 +4,7 @@ local tcp = assert(socket.tcp())
 
 tcp:connect(host, port);
 
-tcp:send("CONNECTED !!\n");
+tcp:send("CONNECTION PASS!!\n");
 
 while true do
 	local s, status, partial = tcp:receive()
