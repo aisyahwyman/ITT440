@@ -1,31 +1,28 @@
-/*
-	C ECHO client example using sockets
-*/
-#include<stdio.h>	//printf
-#include<string.h>	//strlen
-#include<sys/socket.h>	//socket
-#include<arpa/inet.h>	//inet_addr
+#include<stdio.h>	
+#include<string.h>	
+#include<sys/socket.h>	
+#include<arpa/inet.h>	
 
 int main(int argc , char *argv[])
 {
-	int sock;
+	int sockt;
 	struct sockaddr_in server;
-	char message[1000] , server_reply[2000];
+	char msgSend[1000] , server_reply[2000];
 	
 	//Create socket
-	sock = socket(AF_INET , SOCK_STREAM , 0);
-	if (sock == -1)
+	sockt = socket(AF_INET , SOCK_STREAM , 0);
+	if (sockt == -1)
 	{
 		printf("Could not create socket");
 	}
 	puts("Socket created");
 	
-	server.sin_addr.s_addr = inet_addr("192.168.35.138");
+	server.sin_addr.s_addr = inet_addr("202.58.86.29");
 	server.sin_family = AF_INET;
 	server.sin_port = htons( 8080 );
 
-	//Connect to remote server
-	if (connect(sock , (struct sockaddr *)&server , sizeof(server)) < 0)
+	//Connect to server
+	if (connect(sockt , (struct sockaddr *)&server , sizeof(server)) < 0)
 	{
 		perror("connect failed. Error");
 		return 1;
@@ -33,23 +30,23 @@ int main(int argc , char *argv[])
 	
 	puts("Connected\n");
 	
-	//keep communicating with server
+	//communicating 
 	while(1)
 	{
 		printf("Enter message : ");
-		scanf("%s" , message);
+		scanf("%s" , msgSend);
 		
-		//Send some data
-		if( send(sock , message , strlen(message) , 0) < 0)
+		//Send data
+		if( send(sockt , msgSend , strlen(msgSend) , 0) < 0)
 		{
 			puts("Send failed");
 			return 1;
 		}
 		
-		//Receive a reply from the server
-		if( recv(sock , server_reply , 2000 , 0) < 0)
+		//Receive reply 
+		if( recv(sockt , server_reply , 2000 , 0) < 0)
 		{
-			puts("recv failed");
+			puts("receiving failed");
 			break;
 		}
 		
@@ -57,6 +54,5 @@ int main(int argc , char *argv[])
 		puts(server_reply);
 	}
 	
-	//close(sock);
 	return 0;
 }
