@@ -1,5 +1,5 @@
 local socket = require("socket")
-host = host or "192.168.179.1"
+host = host or "202.58.86.29"
 port = port or 8080
 if arg then
 	host = arg[1] or host
